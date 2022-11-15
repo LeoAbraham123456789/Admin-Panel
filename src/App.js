@@ -8,11 +8,15 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-
+import { productInputs, userInputs } from "./formSource"
+import "./style/dark.scss";
+import { useContext, useState } from "react"
+import { DarkModeContext } from "./context/darkModeContext"
 
 function App() {
+  const {darkMode}=useContext(DarkModeContext)
   return (
-    <div className="App">
+    <div className={darkMode ? "app dark" : "app"}>
       <Router>
         <Routes>
           <Route path="/">
@@ -21,12 +25,12 @@ function App() {
             <Route path = "users">
               <Route index element = {<List/>}/>
               <Route path =":userId" element={<Single/>}/>
-              <Route path="new" element={<New/>}/>
+              <Route path="new" element={<New inputs={userInputs} title="Add New User"/>}/>
             </Route>
             <Route path = "products">
               <Route index element = {<List/>}/>
               <Route path =":productId" element={<Single/>}/>
-              <Route path="new" element={<New/>}/>
+              <Route path="new" element={<New inputs={productInputs} title="Add New Product"/>}/>
             </Route>
           </Route>
         </Routes>
